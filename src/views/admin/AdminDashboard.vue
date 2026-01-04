@@ -124,7 +124,6 @@
   </div>
 </template>
 
-
 <script setup lang="ts">
 import { ref, computed, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
@@ -161,11 +160,12 @@ onMounted(() => {
 const handleLogout = () => {
   authStore.logout()
   router.push('/')
+  toastStore.show("Sucesso", "Logout realizado com sucesso", "info")
 }
 
 const toggleVisibility = async (id: string) => {
   await projectsStore.toggleVisibility(id)
-  toastStore.show()
+  toastStore.show("Sucesso", "Visibilidade do projeto alterada", "success")
 }
 
 const editProject = (project: Project) => {
@@ -181,14 +181,13 @@ const closeModal = () => {
 const saveProject = async (project: Omit<Project, 'id'> | Project) => {
   if ('id' in project) {
     await projectsStore.updateProject(project.id, project)
+    toastStore.show("Sucesso", "Projeto atualizado com sucesso", "success")
   } else {
     await projectsStore.addProject(project)
+    toastStore.show("Sucesso", "Projeto adicionado com sucesso", "success")
   }
   closeModal()
-  toastStore.show()
 }
-
-
 
 const confirmDelete = (id: string) => {
   deletingId.value = id
@@ -198,10 +197,11 @@ const deleteProject = async () => {
   if (deletingId.value) {
     await projectsStore.deleteProject(deletingId.value)
     deletingId.value = null
-    toastStore.show()
+    toastStore.show("Sucesso", "Projeto excluído com sucesso", "success")
   }
 }
 </script>
+
 
 
 
