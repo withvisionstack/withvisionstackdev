@@ -2,14 +2,14 @@ export interface Project {
   id: string
   icon: string
 
-  // novos campos genéricos
-  title?: string        // título genérico (usado com i18n)
-  description?: string  // descrição genérica
-  demoLink?: string     // link da demo
-  githubLink?: string   // link do GitHub
-  imageUrl?: string     // URL da imagem
+  // novos campos
+  title?: string
+  description?: string
+  demoLink?: string
+  githubLink?: string
+  imageUrl?: string
 
-  // campos antigos ainda usados em partes do código
+  // campos antigos (para compatibilidade)
   title_pt?: string
   title_en?: string
   description_pt?: string
@@ -22,21 +22,24 @@ export interface Project {
   visible: boolean
 }
 
-
-
-
 export interface ContactForm {
   nome: string
   email: string
   mensagem: string
 }
 
+export interface Skill {
+  id: string
+  name: string
+  level: number | string // flexível
+  icon?: string          // opcional
+  image?: string         // opcional
+}
+
 export interface SocialLink {
   id: string
   icon: string
   url: string
-  label?: string
+  title: string
 }
-
-
 

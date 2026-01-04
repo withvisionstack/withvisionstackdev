@@ -67,26 +67,28 @@ import type { Skill } from './types'
 const languageStore = useLanguageStore()
 
 const mainSkills: Skill[] = [
-  { name: 'HTML5', icon: 'fa-brands fa-html5' },
-  { name: 'CSS3', icon: 'fa-brands fa-css3-alt' },
-  { name: 'JavaScript', icon: 'fa-brands fa-square-js' },
-  { name: 'React', icon: 'fa-brands fa-react' },
-  { name: 'TypeScript', image: '/assets/typescript.png' },
-  { name: 'Tailwind CSS', image: '/assets/tailwind-css.svg' },
-  { name: 'Git', icon: 'fa-brands fa-git-alt' },
-  { name: 'Mobile responsive', icon: 'fa-solid fa-mobile-screen-button' },
-  { name: 'Api Rest', image: '/public/assets/api.png' },
-  { name: 'Figma', image: '/assets/figma.png' }
+  { id: 'html', name: 'HTML5', level: 90, icon: 'fa-brands fa-html5' },
+  { id: 'css', name: 'CSS3', level: 85, icon: 'fa-brands fa-css3-alt' },
+  { id: 'js', name: 'JavaScript', level: 80, icon: 'fa-brands fa-square-js' },
+  { id: 'react', name: 'React', level: 75, icon: 'fa-brands fa-react' },
+  { id: 'ts', name: 'TypeScript', level: 70, image: '/assets/typescript.png' },
+  { id: 'tailwind', name: 'Tailwind CSS', level: 65, image: '/assets/tailwind-css.svg' },
+  { id: 'git', name: 'Git', level: 85, icon: 'fa-brands fa-git-alt' },
+  { id: 'mobile', name: 'Mobile responsive', level: 80, icon: 'fa-solid fa-mobile-screen-button' },
+  { id: 'api', name: 'Api Rest', level: 70, image: '/public/assets/api.png' },
+  { id: 'figma', name: 'Figma', level: 60, image: '/assets/figma.png' }
 ]
 
 const learningSkills: Skill[] = [
-  { name: 'Node.js | Back-end', icon: 'lab la-node-js' },
-  { name: 'Python | Back-end', icon: 'lab la-python' },
-  { name: 'PHP | Back-end', icon: 'fa-brands fa-php' },
-  { name: 'Rust | Back-end', image: '/assets/Rust_programming_language_black_logo.svg.png' },
-  { name: 'Golang | Back-end', image: '/assets/golang_icon_198153.png' },
-  { name: 'GraphQL', image: '/assets/icons8-graphql-50.png' }
+  { id: 'node', name: 'Node.js | Back-end', level: 40, icon: 'lab la-node-js' },
+  { id: 'python', name: 'Python | Back-end', level: 30, icon: 'lab la-python' },
+  { id: 'php', name: 'PHP | Back-end', level: 25, icon: 'fa-brands fa-php' },
+  { id: 'rust', name: 'Rust | Back-end', level: 20, image: '/assets/Rust_programming_language_black_logo.svg.png' },
+  { id: 'golang', name: 'Golang | Back-end', level: 20, image: '/assets/golang_icon_198153.png' },
+  { id: 'graphql', name: 'GraphQL', level: 15, image: '/assets/icons8-graphql-50.png' }
 ]
+
+
 </script>
 
 <style scoped>

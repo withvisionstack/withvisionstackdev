@@ -15,25 +15,21 @@
     <p>&copy; {{ currentYear }} Feito com ❤ por withvisionstack . Todos os direitos reservados.</p>
   </footer>
 </template>
-
 <script setup lang="ts">
-import type { SocialLink } from './types'
+import { ref } from "vue"
+import type { SocialLink } from "./types"
+
 const currentYear = new Date().getFullYear()
 
-const socialLinks: SocialLink[] = [
-  {
-    title: 'GitHub',
-    url: 'https://github.com/withvisionstack',
-    icon: 'fab fa-github'
-  },
-  {
-    title: 'LinkedIn',
-    url: '#',
-    icon: 'fab fa-linkedin-in'
-  }
- 
-]
+// Defina os links sociais
+const socialLinks = ref<SocialLink[]>([
+  { id: "github", title: "GitHub", url: "https://github.com/seuUsuario", icon: "fab fa-github" },
+  { id: "linkedin", title: "LinkedIn", url: "https://linkedin.com/in/seuUsuario", icon: "fab fa-linkedin" },
+  { id: "twitter", title: "Twitter", url: "https://twitter.com/seuUsuario", icon: "fab fa-twitter" }
+])
 </script>
+
+
 
 <style scoped>
 footer {
