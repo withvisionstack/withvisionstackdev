@@ -94,7 +94,7 @@ const handleSubmit = async (): Promise<void> => {
     isSubmitting.value = true
 
     // 📡 Envio real (sem reCAPTCHA)
-    const response = await fetch('http://withvisionstackservices.onrender.com', {
+    const response = await fetch('https://withvisionstackservices.onrender.com', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
