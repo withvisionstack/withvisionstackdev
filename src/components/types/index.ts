@@ -12,3 +12,10 @@ export interface Project {
   visible: boolean
 }
 
+export interface ContactForm {
+  nome: string
+  email: string
+  mensagem: string
+}
+
+
