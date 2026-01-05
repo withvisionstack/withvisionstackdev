@@ -26,9 +26,17 @@
           :placeholder="languageStore.t('contact.messagePlaceholder')"
           required
         ></textarea>
+
+        <!-- contador de caracteres -->
+        <p :style="{ color: formData.mensagem.length < 600 ? 'red' : 'lightgreen' }">
+          Caracteres: {{ formData.mensagem.length }} / 600
+        </p>
         
         <div class="submit-wrapper">
-          <button type="submit" :disabled="isSubmitting">
+          <button 
+            type="submit" 
+            :disabled="isSubmitting || formData.nome.length < 10 || !emailRegex.test(formData.email) || formData.mensagem.length < 600"
+          >
             <span v-if="!isSubmitting">{{ languageStore.t('contact.sendBtn') }}</span>
             <span v-else>Enviando...</span>
           </button>
@@ -64,36 +72,9 @@ const emailRegex: RegExp = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 const handleSubmit = async (): Promise<void> => {
   if (isSubmitting.value) return
 
-  // 🔎 Validações
-  if (!formData.nome || !formData.email || !formData.mensagem) {
-    toast.warning('Por favor, preencha todos os campos.')
-    return
-  }
-
-  if (!emailRegex.test(formData.email)) {
-    toast.error('Por favor, insira um email válido.')
-    return
-  }
-
-  if (formData.nome.length < 10) {
-    toast.warning('Por favor, insira seu nome completo.')
-    return
-  }
-
-  if (formData.email.length < 16) {
-    toast.warning('Por favor, insira um email real.')
-    return
-  }
-
-  if (formData.mensagem.length < 600) {
-    toast.warning('Escreva uma mensagem mais detalhada.')
-    return
-  }
-
   try {
     isSubmitting.value = true
 
-    // 📡 Envio real (sem reCAPTCHA)
     const response = await fetch('https://withvisionstackservices.onrender.com/messages', {
       method: 'POST',
       headers: {
@@ -106,12 +87,10 @@ const handleSubmit = async (): Promise<void> => {
       })
     })
 
-    const data: { success: boolean; message?: string } = await response.json()
+    const data: { success?: boolean; message?: string } = await response.json()
 
-    if (data.success) {
+    if (response.ok) {
       toast.success('Mensagem enviada com sucesso! ✨')
-
-      // 🧹 Limpar formulário
       formData.nome = ''
       formData.email = ''
       formData.mensagem = ''
@@ -126,6 +105,7 @@ const handleSubmit = async (): Promise<void> => {
   }
 }
 </script>
+
 
 <style scoped>
 #contato {
