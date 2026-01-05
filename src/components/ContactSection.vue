@@ -100,9 +100,9 @@ const handleSubmit = async (): Promise<void> => {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        name: formData.nome,
-        email: formData.email,
-        message: formData.mensagem
+        sender_name: formData.nome,
+        sender_email: formData.email,
+        content: formData.mensagem
       })
     })
 
@@ -126,8 +126,6 @@ const handleSubmit = async (): Promise<void> => {
   }
 }
 </script>
-
-
 
 <style scoped>
 #contato {
