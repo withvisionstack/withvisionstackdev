@@ -26,17 +26,9 @@
           :placeholder="languageStore.t('contact.messagePlaceholder')"
           required
         ></textarea>
-
-        <!-- contador de caracteres -->
-        <p :style="{ color: formData.mensagem.length < 600 ? 'red' : 'lightgreen' }">
-          Caracteres: {{ formData.mensagem.length }} / 600
-        </p>
         
         <div class="submit-wrapper">
-          <button 
-            type="submit" 
-            :disabled="isSubmitting || formData.nome.length < 10 || !emailRegex.test(formData.email) || formData.mensagem.length < 600"
-          >
+          <button type="submit" :disabled="isSubmitting">
             <span v-if="!isSubmitting">{{ languageStore.t('contact.sendBtn') }}</span>
             <span v-else>Enviando...</span>
           </button>
@@ -72,21 +64,41 @@ const emailRegex: RegExp = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 const handleSubmit = async (): Promise<void> => {
   if (isSubmitting.value) return
 
-  // 🔎 Logar payload antes do envio
-  console.log({
-    sender_name: formData.nome,
-    sender_email: formData.email,
-    content: formData.mensagem,
-    tamanhoMensagem: formData.mensagem.length
-  })
+  // 🔎 Validações
+  if (!formData.nome || !formData.email || !formData.mensagem) {
+    toast.warning('Por favor, preencha todos os campos.')
+    return
+  }
+
+  if (!emailRegex.test(formData.email)) {
+    toast.error('Por favor, insira um email válido.')
+    return
+  }
+
+  if (formData.nome.length < 10) {
+    toast.warning('Por favor, insira seu nome completo.')
+    return
+  }
+
+  if (formData.email.length < 16) {
+    toast.warning('Por favor, insira um email real.')
+    return
+  }
+
+  if (formData.mensagem.length < 600) {
+    toast.warning('Escreva uma mensagem mais detalhada.')
+    return
+  }
 
   try {
     isSubmitting.value = true
 
+    // 📡 Envio real
     const response = await fetch('https://withvisionstackservices.onrender.com/messages', {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer lasventuras'
       },
       body: JSON.stringify({
         sender_name: formData.nome,
@@ -112,11 +124,7 @@ const handleSubmit = async (): Promise<void> => {
     isSubmitting.value = false
   }
 }
-
-
 </script>
-
-
 
 
 <style scoped>
