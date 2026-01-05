@@ -72,19 +72,13 @@ const emailRegex: RegExp = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 const handleSubmit = async (): Promise<void> => {
   if (isSubmitting.value) return
 
-  // 🔎 Validações extras antes do envio
-  if (formData.nome.length < 10) {
-    toast.warning('Por favor, insira seu nome completo (mínimo 10 caracteres).')
-    return
-  }
-  if (!emailRegex.test(formData.email)) {
-    toast.error('Por favor, insira um email válido.')
-    return
-  }
-  if (formData.mensagem.length < 600) {
-    toast.warning('Escreva uma mensagem mais detalhada (mínimo 600 caracteres).')
-    return
-  }
+  // 🔎 Logar payload antes do envio
+  console.log({
+    sender_name: formData.nome,
+    sender_email: formData.email,
+    content: formData.mensagem,
+    tamanhoMensagem: formData.mensagem.length
+  })
 
   try {
     isSubmitting.value = true
@@ -118,6 +112,8 @@ const handleSubmit = async (): Promise<void> => {
     isSubmitting.value = false
   }
 }
+
+
 </script>
 
 
